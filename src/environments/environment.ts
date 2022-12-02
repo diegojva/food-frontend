@@ -4,7 +4,13 @@
 
 export const environment = {
   production: false,
-  apiBase : 'http://localhost:8081/api'
+  apiBase : 'http://localhost:8080',
+  apiBase2 : 'http://localhost:8086',
+
+  TOKEN_AUTH_USERNAME: 'foodapp',
+  TOKEN_AUTH_PASSWORD: 'foodapp123xd',
+  TOKEN_NAME: 'token',
+  REINTENTOS: 2
 };
 
 /*

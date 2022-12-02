@@ -23,8 +23,11 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatTabsModule } from '@angular/material/tabs';
-import { MatNativeDateModule } from '@angular/material/core';
+import { DateAdapter, MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { CustomDateAdapter } from './custom-adapter';
 
 
 @NgModule({
@@ -57,7 +60,13 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatCardModule,
     MatGridListModule,
     MatTabsModule,
-    ReactiveFormsModule 
+    ReactiveFormsModule ,
+    MatProgressBarModule,
+    MatProgressSpinnerModule
+  ],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'es-ES' },
+    { provide: DateAdapter, useClass: CustomDateAdapter }
   ]
 })
 export class MaterialModule { }

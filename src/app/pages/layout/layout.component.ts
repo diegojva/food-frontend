@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LoginService } from 'src/app/service/login.service';
 
 @Component({
   selector: 'app-layout',
@@ -9,11 +10,13 @@ export class LayoutComponent implements OnInit {
 
   menus : any[] = [];
 
-  constructor() { }
+  constructor(private loginService: LoginService) { }
 
   ngOnInit(): void {
   }
 
-  logout(){}
+  logout(){
+    this.loginService.logout();
+  }
 
 }

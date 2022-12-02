@@ -17,15 +17,15 @@ export class ProductService {
   constructor(private http: HttpClient) { }
 
   registerProduct(product: Product) {
-    return this.http.post(`${this.apiBase}/product/register`, product);
+    return this.http.post(`${this.apiBase}/api/product/register`, product);
   }
 
   getAllProducts() {
-    return this.http.get<Product[]>(`${this.apiBase}/product/list`);
+    return this.http.get<Product[]>(`${environment.apiBase2}/api/product/list`);
   }
 
   listPageable(p: number, s:number){
-    return this.http.get<any>(`${this.apiBase}/product/pageable?page=${p}&size=${s}`);
+    return this.http.get<any>(`${this.apiBase}/api/product/pageable?page=${p}&size=${s}`);
   }
 
   setMessageChange(message: string){
