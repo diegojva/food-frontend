@@ -28,6 +28,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { CustomDateAdapter } from './custom-adapter';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -62,7 +63,8 @@ import { CustomDateAdapter } from './custom-adapter';
     MatTabsModule,
     ReactiveFormsModule ,
     MatProgressBarModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatTooltipModule
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'es-ES' },
