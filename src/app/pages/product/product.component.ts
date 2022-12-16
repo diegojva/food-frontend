@@ -3,6 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { NotificationDTO } from 'src/app/model/notificationDTO';
 import { Product } from 'src/app/model/product';
 import { ProductService } from 'src/app/service/product.service';
 
@@ -13,54 +14,48 @@ import { ProductService } from 'src/app/service/product.service';
 })
 export class ProductComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'name', 'category', 'stock', 'measureUnit', 'photo', 'actions'];
-  dataSource: MatTableDataSource<Product>;
+  displayedColumns: string[] = ['id', 'name_product', 'name_shop', 'stock','actions'];
+  dataSource: MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   totalElements: number;
+  
+  /*notificationDTO: NotificationDTO[] = [
+    {id: 1, name_product: 'Coca Cola', name_shop: 'Carrefour', stock: 10, date: '2020-12-12'},
+    {id: 2, name_product: 'Coca Cola', name_shop: 'Carrefour', stock: 10, date: '2020-12-12'},
+    {id: 3, name_product: 'Coca Cola', name_shop: 'Carrefour', stock: 10, date: '2020-12-12'},
+    {id: 4, name_product: 'Coca Cola', name_shop: 'Carrefour', stock: 10, date: '2020-12-12'},
+    {id: 5, name_product: 'Coca Cola', name_shop: 'Carrefour', stock: 10, date: '2020-12-12'},
+    {id: 6, name_product: 'Coca Cola', name_shop: 'Carrefour', stock: 10, date: '2020-12-12'},
+    {id: 7, name_product: 'Inka Cola', name_shop: 'Backups', stock: 60, date: '2020-12-13'},
+    {id: 8, name_product: 'Coca Cola', name_shop: 'Carrefour', stock: 10, date: '2020-12-12'},
+    {id: 9, name_product: 'Coca Cola', name_shop: 'Carrefour', stock: 10, date: '2020-12-12'},
+  ];*/
 
-  constructor(private snackBar: MatSnackBar,
-              private productService: ProductService) { }
+  constructor(private productService: ProductService) {
+    
+   }
 
   ngOnInit(): void {
-    this.productService.productChange.subscribe(data => {
-      this.createTable(data);
+    this.loadData();
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
+  loadData(){
+    this.productService.getAllProductsLow().subscribe(data => {
+      this.dataSource = new MatTableDataSource(data);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort
     });
-
-    this.productService.getMessageChange().subscribe(data => {
-      this.snackBar.open(data, 'INFO', { duration: 2000, verticalPosition: "top", horizontalPosition: "right" });
-    });
-
-    this.productService.listPageable(0, 3).subscribe(data => {
-      this.createTable(data);
-    });
-
   }
 
-  applyFilter(e: any) {
-    this.dataSource.filter = e.target.value.trim().toLowerCase();
-  }
-
-  /*delete(idPatient: number){
-    this.productService.delete(idPatient).pipe(switchMap( ()=> {
-      return this.patientService.findAll();
-    }))
-    .subscribe(data => {
-      this.patientService.patientChange.next(data);
-      this.patientService.setMessageChange('DELETED!');
-    })
-    ;
-  }*/
-
-  createTable(products: any){
-    this.dataSource = new MatTableDataSource(products.content);    
-    this.totalElements = products.totalElements;
-    //this.dataSource.paginator = this.paginator;
-    //this.dataSource.sort = this.sort;        
-  }
-
-  showMore(e: any){
-    this.productService.listPageable(e.pageIndex, e.pageSize).subscribe(data => this.createTable(data));
-  }
 
 }

@@ -19,7 +19,7 @@ h1{
     width: 100%;
     overflow-x: auto;
     margin:1rem auto;
-    max-width: 1250px;
+    max-width: 1400px;
     box-shadow: -1px 3px 66px 0px rgba(0,0,0,0.15);
   }
 
@@ -45,7 +45,6 @@ th {
 td {
   padding: 0.5em;
   border-bottom: 1px solid #ddd;
-  font-style: italic;
   font-weight: 400;
   color: #565656;
 }

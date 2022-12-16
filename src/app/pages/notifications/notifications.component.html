@@ -1,5 +1,5 @@
 <router-outlet></router-outlet>
-<h1>NOTIFICACIONES</h1>
+<h1>NOTIFICATIONES</h1>
 <mat-form-field >
     <mat-label>Filtrar</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
@@ -15,26 +15,48 @@
       </ng-container>
   
       <!-- Progress Column -->
-      <ng-container matColumnDef="name_product">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> NOMBRE PRODUCTO </th>
-        <td mat-cell *matCellDef="let row"> {{row.name_product}} </td>
+      <!--<ng-container matColumnDef="productId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID PRODUCTO </th>
+        <td mat-cell *matCellDef="let row"> {{row.productId}} </td>
       </ng-container>
-  
-      <!-- Name Column -->
-      <ng-container matColumnDef="name_shop">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> NOMBRE TIENDA </th>
-        <td mat-cell *matCellDef="let row"> {{row.name_shop}} </td>
+
+
+      <ng-container matColumnDef="shopId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID SHOP </th>
+        <td mat-cell *matCellDef="let row"> {{row.shopId}} </td>
       </ng-container>
-  
-      <!-- Fruit Column -->
+
+
       <ng-container matColumnDef="stock">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> STOCK </th>
         <td mat-cell *matCellDef="let row"> {{row.stock}} </td>
+      </ng-container>-->
+  
+      <!-- Name Column -->
+      <ng-container matColumnDef="sendDate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> FECHA </th>
+        <td mat-cell *matCellDef="let row"> {{row.sendDate | date : 'short'}} </td>
+      </ng-container>
+  
+      <!-- Fruit Column -->
+      <!--<ng-container matColumnDef="setFrom">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> EMISOR </th>
+        <td mat-cell *matCellDef="let row"> {{row.setFrom}} </td>
+      </ng-container>-->
+
+      <ng-container matColumnDef="setTo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> RECEPTOR </th>
+        <td mat-cell *matCellDef="let row"> {{row.setTo}} </td>
       </ng-container>
 
-      <ng-container matColumnDef="date">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> FECHA </th>
-        <td mat-cell *matCellDef="let row"> {{row.date}} </td>
+      <ng-container matColumnDef="subject">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> ASUNTO </th>
+        <td mat-cell *matCellDef="let row"> {{row.subject}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="text">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> MENSAJE </th>
+        <td mat-cell *matCellDef="let row"> {{row.text}} </td>
       </ng-container>
 
       <ng-container matColumnDef="actions">

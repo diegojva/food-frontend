@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   apiBase : 'http://localhost:8080',
   apiBase2 : 'http://localhost:8086',
+  apiBase3 : 'http://localhost:8081',
 
   TOKEN_AUTH_USERNAME: 'foodapp',
   TOKEN_AUTH_PASSWORD: 'foodapp123xd',

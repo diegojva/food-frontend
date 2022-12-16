@@ -1,0 +1,27 @@
+<br>
+<div class="form-box" fxLayout="row wrap">
+    <div fxFlex.gt-sm="100" fxFlex="100">
+      <mat-card>
+        <mat-card-content>
+          <mat-card-title>GENERAR ORDEN</mat-card-title>
+          <!--<mat-card-subtitle
+            >use this class <code>.row</code> to the fxLayout="row" and <code>p-10</code> to the
+            fxFlex div</mat-card-subtitle
+          >-->
+          <br>
+          <mat-card-subtitle>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores eaque voluptate et, dicta reprehenderit temporibus deserunt voluptas exercitationem harum laboriosam, doloremque magnam labore ab, sequi odio. Commodi, distinctio. Expedita, officiis..</mat-card-subtitle>
+
+          <form class="basic-form" [formGroup]="formRegister" #frmRegister="ngForm">
+            <div fxLayout="row wrap" fxFlexAlign="center" class="row">
+                <!-- column -->
+                <div fxFlex.gt-sm="50" fxFlex="100" class="p-5">
+                    <mat-form-field>
+                        <input matInput placeholder="Product"  formControlName="product"   />
+                      </mat-form-field>
+                </div>
+            </div>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>

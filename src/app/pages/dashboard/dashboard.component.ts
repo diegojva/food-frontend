@@ -36,11 +36,11 @@ export class DashboardComponent implements OnInit {
               public loaderService: LoaderService) { }
 
   ngOnInit(): void {
-    setTimeout(() => {
+    /*setTimeout(() => {
       this.productService.getAllProducts().subscribe(data => {
         this.products = data;
       });
-    }, 1000);
+    }, 1000);*/
   }
 
   filter(){

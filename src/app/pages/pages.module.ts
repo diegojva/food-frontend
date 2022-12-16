@@ -15,6 +15,8 @@ import { NotificationsComponent } from './notifications/notifications.component'
 import { ReportsComponent } from './reports/reports.component';
 import { AboutComponent } from './about/about.component';
 import { FormsModule } from '@angular/forms';
+import { TestVentasComponent } from './test-ventas/test-ventas.component';
+import { GenerateOrdersComponent } from './generate-orders/generate-orders.component';
 
 
 @NgModule({
@@ -27,7 +29,9 @@ import { FormsModule } from '@angular/forms';
     LoginComponent,
     NotificationsComponent,
     ReportsComponent,
-    AboutComponent
+    AboutComponent,
+    TestVentasComponent,
+    GenerateOrdersComponent
   ],
   imports: [
     CommonModule,
@@ -35,7 +39,7 @@ import { FormsModule } from '@angular/forms';
     MaterialModule,
     HttpClientModule,
     FlexLayoutModule,
-    FormsModule
+    FormsModule,
   ]
 })
 export class PagesModule { }

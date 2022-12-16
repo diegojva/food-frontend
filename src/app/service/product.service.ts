@@ -20,9 +20,10 @@ export class ProductService {
     return this.http.post(`${this.apiBase}/api/product/register`, product);
   }
 
-  getAllProducts() {
-    return this.http.get<Product[]>(`${environment.apiBase2}/api/product/list`);
+  getAllProductsLow() {
+    return this.http.get<Product[]>(`${this.apiBase}/product/v1/products-stock-low`);
   }
+  
 
   listPageable(p: number, s:number){
     return this.http.get<any>(`${this.apiBase}/api/product/pageable?page=${p}&size=${s}`);

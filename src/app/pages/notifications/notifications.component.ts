@@ -1,6 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { NotificationDTO } from 'src/app/model/notificationDTO';
+import {TooltipPosition} from '@angular/material/tooltip';
+import { NotificationService } from 'src/app/service/notification.service';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-notifications',
@@ -9,26 +13,19 @@ import { NotificationDTO } from 'src/app/model/notificationDTO';
 })
 export class NotificationsComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'name_product', 'name_shop', 'stock','date','actions'];
+  displayedColumns: string[] = ['id','sendDate','setTo','subject','text','actions'];
   dataSource: MatTableDataSource<any>;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+  totalElements: number;
   
-  notificationDTO: NotificationDTO[] = [
-    {id: 1, name_product: 'Coca Cola', name_shop: 'Carrefour', stock: 10, date: '2020-12-12'},
-    {id: 2, name_product: 'Coca Cola', name_shop: 'Carrefour', stock: 10, date: '2020-12-12'},
-    {id: 3, name_product: 'Coca Cola', name_shop: 'Carrefour', stock: 10, date: '2020-12-12'},
-    {id: 4, name_product: 'Coca Cola', name_shop: 'Carrefour', stock: 10, date: '2020-12-12'},
-    {id: 5, name_product: 'Coca Cola', name_shop: 'Carrefour', stock: 10, date: '2020-12-12'},
-    {id: 6, name_product: 'Coca Cola', name_shop: 'Carrefour', stock: 10, date: '2020-12-12'},
-    {id: 7, name_product: 'Inka Cola', name_shop: 'Backups', stock: 60, date: '2020-12-13'},
-    {id: 8, name_product: 'Coca Cola', name_shop: 'Carrefour', stock: 10, date: '2020-12-12'},
-    {id: 9, name_product: 'Coca Cola', name_shop: 'Carrefour', stock: 10, date: '2020-12-12'},
-  ];
 
-  constructor() {
-    this.dataSource = new MatTableDataSource(this.notificationDTO);
+  constructor(private notificationService: NotificationService) {
+    //this.dataSource = new MatTableDataSource(this.notificationDTO);
    }
 
   ngOnInit(): void {
+    this.loadData();
   }
 
   applyFilter(event: Event) {
@@ -38,6 +35,19 @@ export class NotificationsComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  createTable(notification: any){
+    this.dataSource = new MatTableDataSource(notification.content);    
+    this.totalElements = notification.totalElements;
+    //this.dataSource.paginator = this.paginator;
+    //this.dataSource.sort = this.sort;        
+  }
+
+  loadData(){
+    this.notificationService.listPageable(0, 3).subscribe(data => {
+      this.createTable(data);
+    });
   }
 
 }
