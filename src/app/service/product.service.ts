@@ -21,7 +21,7 @@ export class ProductService {
   }
 
   getAllProductsLow() {
-    return this.http.get<Product[]>(`${this.apiBase}/product/v1/products-stock-low`);
+    return this.http.get<any[]>(`${this.apiBase}/product/v1/products-stock-low`);
   }
   
 

@@ -1,6 +1,6 @@
-<h1>Reportes de Ventas</h1>
+<h1>DASHBOARD</h1>
 
-<mat-toolbar>Charts, PDF and Image</mat-toolbar>
+<mat-toolbar>Charts</mat-toolbar>
 
 <button mat-button color="primary" (click)="change('line')">Line</button>
 <button mat-button color="primary" (click)="change('bar')">Bar</button>
@@ -8,6 +8,14 @@
 <button mat-button color="primary" (click)="change('radar')">Radar</button>
 <button mat-button color="primary" (click)="change('pie')">Pie</button>
 
-<div [hidden]="!chart">
-    <canvas id="canvas">{{chart}}</canvas>
-</div>
+
+
+
+<mat-grid-list cols="2" rowHeight="2:1">
+  <mat-grid-tile>
+    <div [hidden]="!chart" style="height:40vh; width:100%">
+        <canvas id="canvas">{{chart}}</canvas>
+    </div>
+</mat-grid-tile>
+
+</mat-grid-list>
