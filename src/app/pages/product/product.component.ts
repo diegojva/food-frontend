@@ -3,8 +3,10 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { NavigationExtras, Router } from '@angular/router';
 import { NotificationDTO } from 'src/app/model/notificationDTO';
 import { Product } from 'src/app/model/product';
+import { LoaderService } from 'src/app/service/loader.service';
 import { ProductService } from 'src/app/service/product.service';
 
 @Component({
@@ -19,6 +21,8 @@ export class ProductComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   totalElements: number;
+
+
   
   /*notificationDTO: NotificationDTO[] = [
     {id: 1, name_product: 'Coca Cola', name_shop: 'Carrefour', stock: 10, date: '2020-12-12'},
@@ -32,7 +36,8 @@ export class ProductComponent implements OnInit {
     {id: 9, name_product: 'Coca Cola', name_shop: 'Carrefour', stock: 10, date: '2020-12-12'},
   ];*/
 
-  constructor(private productService: ProductService) {
+  constructor(private productService: ProductService, public loaderService: LoaderService,
+            private router: Router) {
     
    }
 
@@ -57,5 +62,13 @@ export class ProductComponent implements OnInit {
     });
   }
 
+  generate(row: any){
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+          "user": JSON.stringify(row)
+      }
+    };
+    this.router.navigate(["/pages/product/generate-order/"],  navigationExtras);
+  }
 
 }

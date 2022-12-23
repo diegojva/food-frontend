@@ -12,7 +12,6 @@ export class ReportsComponent implements OnInit {
   type: string = 'line';
   chart: any;
 
-
   constructor(private productService: ProductService) { }
 
   ngOnInit(): void {

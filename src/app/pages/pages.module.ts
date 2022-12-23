@@ -17,6 +17,8 @@ import { AboutComponent } from './about/about.component';
 import { FormsModule } from '@angular/forms';
 import { TestVentasComponent } from './test-ventas/test-ventas.component';
 import { GenerateOrdersComponent } from './generate-orders/generate-orders.component';
+import {MatGridListModule} from '@angular/material/grid-list';
+import { ListOrdersComponent } from './generate-orders/list-orders/list-orders.component';
 
 
 @NgModule({
@@ -31,7 +33,8 @@ import { GenerateOrdersComponent } from './generate-orders/generate-orders.compo
     ReportsComponent,
     AboutComponent,
     TestVentasComponent,
-    GenerateOrdersComponent
+    GenerateOrdersComponent,
+    ListOrdersComponent
   ],
   imports: [
     CommonModule,
@@ -40,6 +43,7 @@ import { GenerateOrdersComponent } from './generate-orders/generate-orders.compo
     HttpClientModule,
     FlexLayoutModule,
     FormsModule,
+    MatGridListModule
   ]
 })
 export class PagesModule { }

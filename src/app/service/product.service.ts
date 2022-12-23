@@ -24,6 +24,9 @@ export class ProductService {
     return this.http.get<any[]>(`${this.apiBase}/product/v1/products-stock-low`);
   }
   
+  getProduct(id : number){
+    return this.http.get<any>(`${this.apiBase}/product/v1/product/${id}`);
+  }
 
   listPageable(p: number, s:number){
     return this.http.get<any>(`${this.apiBase}/api/product/pageable?page=${p}&size=${s}`);

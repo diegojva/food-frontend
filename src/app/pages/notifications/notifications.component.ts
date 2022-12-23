@@ -5,6 +5,7 @@ import {TooltipPosition} from '@angular/material/tooltip';
 import { NotificationService } from 'src/app/service/notification.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { LoaderService } from 'src/app/service/loader.service';
 
 @Component({
   selector: 'app-notifications',
@@ -20,7 +21,7 @@ export class NotificationsComponent implements OnInit {
   totalElements: number;
   
 
-  constructor(private notificationService: NotificationService) {
+  constructor(private notificationService: NotificationService, public loaderService: LoaderService) {
     //this.dataSource = new MatTableDataSource(this.notificationDTO);
    }
 

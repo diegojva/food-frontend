@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoaderService } from 'src/app/service/loader.service';
 import { ProductService } from 'src/app/service/product.service';
 import * as moment from 'moment';
+import { Chart } from 'chart.js';
 
 export interface Tile {
   color: string;
@@ -31,26 +32,69 @@ export class DashboardComponent implements OnInit {
     {text: 'Three', cols: 1, rows: 1, color: 'lightpink'},
     {text: 'Four', cols: 2, rows: 1, color: '#DDBDF1'},
   ];
+  type: string = 'line';
+  chart: any;
 
-  constructor(private productService: ProductService,
-              public loaderService: LoaderService) { }
+  constructor(private productService: ProductService, public loaderService: LoaderService) { }
 
   ngOnInit(): void {
-    /*setTimeout(() => {
-      this.productService.getAllProducts().subscribe(data => {
-        this.products = data;
+    this.draw();
+  }
+
+  draw(){
+    this.productService.getAllProductsLow().subscribe(data => {
+      let dates = data.map(x => x.productName);
+      let quantities = data.map(x => x.stock);
+
+      this.chart = new Chart('canvas', {
+        type: this.type,
+        data: {
+          labels: dates,
+          datasets: [
+            {
+              label: 'Quantity',
+              data: quantities,
+              borderColor: "#3cba9f",
+              fill: false,
+              backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 0, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+              ]
+            }
+          ]
+        },
+        options: {
+          legend: {
+            display: true
+          },
+          scales: {
+            xAxes: [{
+              display: true
+            }],
+            yAxes: [{
+              display: true,
+              ticks: {
+                beginAtZero: true
+              }
+            }],
+          }
+        }
       });
-    }, 1000);*/
+    });
   }
 
-  filter(){
-
-    let date1 = this.startDate;
-    let date2 = this.endDate
-
-    date1 = moment(date1).format('YYYY-MM-DDTHH:mm:ss');
-    date2 = moment(date2).format('YYYY-MM-DDTHH:mm:ss');
-    console.log(date1);
+  change(type: string){
+    this.type = type;
+    if(this.chart != null){
+      this.chart.destroy();
+    }
+    this.draw();
   }
+
+
 
 }

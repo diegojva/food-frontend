@@ -1,27 +1,42 @@
 <br>
 <div class="form-box" fxLayout="row wrap">
     <div fxFlex.gt-sm="100" fxFlex="100">
-      <mat-card>
-        <mat-card-content>
+      <mat-card  >
+        <mat-card-content >
           <mat-card-title>GENERAR ORDEN</mat-card-title>
           <!--<mat-card-subtitle
             >use this class <code>.row</code> to the fxLayout="row" and <code>p-10</code> to the
             fxFlex div</mat-card-subtitle
           >-->
           <br>
-          <mat-card-subtitle>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores eaque voluptate et, dicta reprehenderit temporibus deserunt voluptas exercitationem harum laboriosam, doloremque magnam labore ab, sequi odio. Commodi, distinctio. Expedita, officiis..</mat-card-subtitle>
+          <mat-card-subtitle>Aquí podrás generar ordenes de productos que se están quedando sin stock...</mat-card-subtitle>
 
-          <form class="basic-form" [formGroup]="formRegister" #frmRegister="ngForm">
-            <div fxLayout="row wrap" fxFlexAlign="center" class="row">
-                <!-- column -->
-                <div fxFlex.gt-sm="50" fxFlex="100" class="p-5">
-                    <mat-form-field>
-                        <input matInput placeholder="Product"  formControlName="product"   />
-                      </mat-form-field>
-                </div>
-            </div>
+
+            <form [formGroup]="formRegister" #frmRegister="ngForm"> 
+              <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+                <mat-form-field>
+                  <input matInput placeholder="Nombre producto" formControlName="product" disable/>
+                </mat-form-field>
+              </div>
+              &nbsp;&nbsp;
+              <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+                <mat-form-field>
+                  <input matInput placeholder="Cantidad" formControlName="cant" type="number" min="1"/>
+                </mat-form-field>
+              </div>
+              &nbsp;&nbsp;
+              <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+                <mat-form-field>
+                  <input matInput placeholder="Tienda" formControlName="shop" disable/>
+                </mat-form-field>
+              </div>
+              &nbsp;&nbsp;
+
           </form>
         </mat-card-content>
+        <button mat-raised-button color="primary" type="submit" [disabled]="!frmRegister.valid" >
+          <mat-icon>done</mat-icon> Solicitar
+        </button>
       </mat-card>
     </div>
   </div>
