@@ -34,7 +34,7 @@
 
           </form>
         </mat-card-content>
-        <button mat-raised-button color="primary" type="submit" [disabled]="!frmRegister.valid" >
+        <button mat-raised-button color="primary" type="submit" [disabled]="!frmRegister.valid" (click)="createOrder()" >
           <mat-icon>done</mat-icon> Solicitar
         </button>
       </mat-card>

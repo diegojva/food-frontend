@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { map, Observable } from 'rxjs';
 import { Product } from 'src/app/model/product';
+import { GenerateOrderService } from 'src/app/service/generate-order.service';
 import { ProductService } from 'src/app/service/product.service';
 
 @Component({
@@ -20,16 +21,15 @@ export class GenerateOrdersComponent implements OnInit {
   state$: Observable<object>;
 
   constructor(private activateRouter: ActivatedRoute,
-              private productService: ProductService) { }
+              private productService: ProductService,
+              private orderService: GenerateOrderService) { }
 
   ngOnInit(): void {
     this.initForm();
-    this.activateRouter.queryParams.subscribe(params => {
-      this.product =   JSON.parse(params["user"]);
-      this.formRegister.patchValue({
-        product: this.product.productName,
-        shop: this.product.shopName
-      });
+    this.product =   JSON.parse(localStorage.getItem('product'));
+    this.formRegister.patchValue({
+      product: this.product.productName,
+      shop: this.product.shopName
     });
   }
 
@@ -46,6 +46,19 @@ export class GenerateOrdersComponent implements OnInit {
       this.productService.getProduct(Number(params.get('id'))).subscribe(product => {
         console.log(product);
       });
+    });
+  }
+
+  createOrder(){
+    let order ={
+      productId : this.product.productId,
+      shopId : this.product.shopId,
+      productName : this.product.productName,
+      shopName : this.product.shopName,
+      cant : this.formRegister.value.cant,
+    }
+    this.orderService.registerOrder(order).subscribe(data => {
+        console.log(data);
     });
   }
 

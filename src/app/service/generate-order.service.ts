@@ -12,6 +12,10 @@ export class GenerateOrderService {
   constructor(private http: HttpClient) { }
 
   registerOrder(order: any) {
-    return this.http.post(`${this.apiBase}/OrderProduct/v1`, order);
+    return this.http.post(`${this.apiBase}/OrderProduct/v1/registar`, order);
+  }
+
+  getAllProductsLow() {
+    return this.http.get<any[]>(`${this.apiBase}/OrderProduct/v1/listar`);
   }
 }

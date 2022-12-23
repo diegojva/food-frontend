@@ -63,12 +63,13 @@ export class ProductComponent implements OnInit {
   }
 
   generate(row: any){
-    let navigationExtras: NavigationExtras = {
+    /*let navigationExtras: NavigationExtras = {
       queryParams: {
           "user": JSON.stringify(row)
       }
-    };
-    this.router.navigate(["/pages/product/generate-order/"],  navigationExtras);
+    };*/
+    localStorage.setItem('product', JSON.stringify(row));
+    this.router.navigate(['/pages/product/generate-order']);
   }
 
 }

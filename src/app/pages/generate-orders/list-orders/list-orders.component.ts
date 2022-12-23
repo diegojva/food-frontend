@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { GenerateOrderService } from 'src/app/service/generate-order.service';
 import { LoaderService } from 'src/app/service/loader.service';
 
 @Component({
@@ -11,24 +12,24 @@ import { LoaderService } from 'src/app/service/loader.service';
 })
 export class ListOrdersComponent implements OnInit {
 
-  displayedColumns: string[] = ['number', 'product', 'shop', 'date','cant','state'];
+  displayedColumns: string[] = ['number', 'product', 'shop', 'date','cant','state','description'];
   dataSource: MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   totalElements: number;
 
-  constructor(public loaderService: LoaderService) { }
+  constructor(public loaderService: LoaderService, private orderService: GenerateOrderService) { }
 
   ngOnInit(): void {
     this.loadData();
   }
 
   loadData(){
-    /*this.productService.getAllProductsLow().subscribe(data => {
+    this.orderService.getAllProductsLow().subscribe(data => {
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort
-    });*/
+    });
   }
 
   applyFilter(event: Event) {

@@ -15,7 +15,7 @@
       <!-- ID Column -->
       <ng-container matColumnDef="number">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Num Orden </th>
-        <td mat-cell *matCellDef="let row"> {{row.productId}} </td>
+        <td mat-cell *matCellDef="let row"> {{row.id}} </td>
       </ng-container>
   
       <!-- Progress Column -->
@@ -33,19 +33,25 @@
       <!-- Fruit Column -->
       <ng-container matColumnDef="date">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
-        <td mat-cell *matCellDef="let row"> {{row.stock}} </td>
+        <td mat-cell *matCellDef="let row"> {{row.created}} </td>
       </ng-container>
 
       <!-- Fruit Column -->
       <ng-container matColumnDef="cant">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Cantidad </th>
-        <td mat-cell *matCellDef="let row"> {{row.stock}} </td>
+        <td mat-cell *matCellDef="let row"> {{row.cant}} </td>
       </ng-container>
 
        <!-- Fruit Column -->
        <ng-container matColumnDef="state">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
-        <td mat-cell *matCellDef="let row"> {{row.stock}} </td>
+        <td mat-cell *matCellDef="let row"> {{row.state}} </td>
+      </ng-container> 
+
+       <!-- Fruit Column -->
+       <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Descripción </th>
+        <td mat-cell *matCellDef="let row"> {{row.descripcion}} </td>
       </ng-container> 
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
