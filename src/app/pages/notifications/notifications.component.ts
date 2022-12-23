@@ -6,6 +6,7 @@ import { NotificationService } from 'src/app/service/notification.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { LoaderService } from 'src/app/service/loader.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-notifications',
@@ -21,7 +22,9 @@ export class NotificationsComponent implements OnInit {
   totalElements: number;
   
 
-  constructor(private notificationService: NotificationService, public loaderService: LoaderService) {
+  constructor(private notificationService: NotificationService, 
+              public loaderService: LoaderService,
+              public router: Router) {
     //this.dataSource = new MatTableDataSource(this.notificationDTO);
    }
 
@@ -46,9 +49,16 @@ export class NotificationsComponent implements OnInit {
   }
 
   loadData(){
-    this.notificationService.listPageable(0, 3).subscribe(data => {
+    this.notificationService.listPageable(0, 5).subscribe(data => {
       this.createTable(data);
     });
   }
 
+  showMore(e: any){
+    this.notificationService.listPageable(e.pageIndex, e.pageSize).subscribe(data => this.createTable(data));
+  }
+
+  redirect(){
+    this.router.navigate(['/pages/product']);
+  }
 }

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
@@ -12,7 +12,10 @@ export class GenerateOrderService {
   constructor(private http: HttpClient) { }
 
   registerOrder(order: any) {
-    return this.http.post(`${this.apiBase}/OrderProduct/v1/registar`, order);
+    let param = new HttpParams();
+    console.log(localStorage.getItem('username'));
+    param = param.set('username', localStorage.getItem('username'));
+    return this.http.post(`${this.apiBase}/OrderProduct/v1/registar`, order, {params: param});
   }
 
   getAllProductsLow() {

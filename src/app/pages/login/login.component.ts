@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { map, Observable } from 'rxjs';
 import { LoaderService } from 'src/app/service/loader.service';
 import { LoginService } from 'src/app/service/login.service';
 import { environment } from 'src/environments/environment';
@@ -31,11 +32,17 @@ export class LoginComponent implements OnInit {
   operate(){
     this.loginService.login(this.form.value['username'], this.form.value['password']).subscribe(data => {
       sessionStorage.setItem(environment.TOKEN_NAME, data.access_token);
-      //console.log(sessionStorage.getItem(environment.TOKEN_NAME));
+      this.getUser();
       this.snackBar.open('¡Bienvenido!', 'OK', { duration: 4000 });
       this.router.navigate(['/pages/dashboard']);
     }, error => {
       this.snackBar.open('Error en el servidor o datos incorrectores.', 'INFO', { duration: 2000 });
+    });
+  }
+
+  getUser(){
+    this.loginService.getUser().subscribe(data => {
+     localStorage.setItem('username', data);
     });
   }
 

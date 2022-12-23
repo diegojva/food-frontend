@@ -1,4 +1,9 @@
-<h1>SIMULAR VENTA</h1>
+
+<div *ngIf="loaderService.isLoading | async" class="loader-container">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>
+
+<h1>SIMULAR CONSUMO API</h1>
 <div fxLayout="row wrap" fxLayoutWrap="wrap"  >
     <!-- column -->
     <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" >
@@ -8,59 +13,25 @@
             <!-- Row -->
             <div fxLayout="row wrap" >
                 <!-- column -->
-                <div  fxFlex.gt-sm="50" fxFlex.gt-xs="100"  fxFlex="100" >
-                    <mat-form-field >
-                        <mat-select placeholder="Select Customer" [(ngModel)]="idCustomerSelected">
-                            <mat-option *ngFor="let customer of (customers$ | async)" [value]="customer.id">
-                                {{customer.name}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-  
-                <div fxFlex.gt-sm="50" fxFlex.gt-xs="100"  fxFlex="100">
-                    <mat-form-field>
-                        <mat-select placeholder="Select Store" [(ngModel)]="idStoreSelected">
-                            <mat-option *ngFor="let store of (stores$ | async)" [value]="store.id">
-                                {{store.name}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-
-                <div fxFlex.gt-sm="50" fxFlex.gt-xs="100"  fxFlex="100">
-                    <mat-form-field>
-                        <mat-select placeholder="Select Product" [(ngModel)]="product"   >
-                            <mat-option *ngFor="let product of (products$ | async)" [value]="product">
-                                {{product.name}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-
                 <div fxFlex.gt-sm="50" fxFlex.gt-xs="100"  fxFlex="100">
                     <mat-form-field appearance="standard" floatLabel="always" >
-                        <mat-label>Cantidad</mat-label>
-                        <input type="number" matInput placeholder="0" [(ngModel)]="quantity" class="example-right-align">
-                      </mat-form-field>
+                        <mat-label>ID Tienda</mat-label>
+                        <mat-select disableRipple [(ngModel)]="idTienda">
+                          <mat-option value="1">Tienda 1</mat-option>
+                        </mat-select>
+                    </mat-form-field>
                     <!--<input matInput placeholder="quantity" [(ngModel)]="quantity" max="15" maxlength="15" type="number">-->
                 </div>
 
+                <!-- column -->
                 <div fxFlex.gt-sm="50" fxFlex.gt-xs="100"  fxFlex="100">
-                    <mat-form-field appearance="standard" floatLabel="always" >
-                        <mat-label>Precio</mat-label>
-                        <input type="number" matInput placeholder="0" [(ngModel)]="price" class="example-right-align">
-                        <span matPrefix>S/&nbsp;</span>
-                        <span matSuffix>.00</span>
+                    <mat-form-field appearance="standard">
+                        <mat-label>ID Productos</mat-label>
+                        <mat-select multiple [(ngModel)]="idProducts">
+                          <mat-option *ngFor="let topping of products" [value]="topping">{{topping}}</mat-option>
+                        </mat-select>
                       </mat-form-field>
-                    <!--<input matInput placeholder="price" [(ngModel)]="price" max="15" maxlength="15" type="number">-->
                 </div>
-
-                <button mat-raised-button color="primary"  (click)="addProduct()">
-                    <mat-icon style="color:aliceblue">add</mat-icon>
-                    <span> AGREGAR</span>
-                </button>
-
                 <!--<mat-expansion-panel *ngFor="let p of details; let i=index" fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
@@ -77,17 +48,12 @@
             
                     <button mat-raised-button color="warn" (click)="remove(i)">Remove</button>
                 </mat-expansion-panel>-->
-
-                <mat-list *ngFor="let p of details; let i=index" fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
-                    <mat-list-item role="listitem">  {{i + 1}}  {{p.product.name}}</mat-list-item>
-                    <button mat-raised-button color="warn" (click)="remove(i)">Remove</button>
-                  </mat-list>
                 
             </div>
 
-            <button mat-raised-button color="primary"  (click)="operate()">
+            <button mat-raised-button color="primary"  (click)="operate()" [disabled]="!idTienda || !idProducts">
                 <mat-icon style="color:aliceblue">done</mat-icon>
-                <span> REGISTRAR</span>
+                <span>Simular</span>
             </button>
         </mat-card-content>
     </mat-card>

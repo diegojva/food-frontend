@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -39,6 +40,13 @@ export class LoginService {
       this.router.navigate(['login']);
     });
   }
+
+  getUser(){
+    const headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf-8');
+    return this.http.get(`${environment.apiBase}/auth/user`, {headers, responseType: 'text'})
+  };
+  
+  
 
   isLogged(){
     let token = sessionStorage.getItem(environment.TOKEN_NAME);

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute, Router } from '@angular/router';
 import { map, Observable } from 'rxjs';
 import { Product } from 'src/app/model/product';
 import { GenerateOrderService } from 'src/app/service/generate-order.service';
@@ -20,9 +21,10 @@ export class GenerateOrdersComponent implements OnInit {
 
   state$: Observable<object>;
 
-  constructor(private activateRouter: ActivatedRoute,
+  constructor(private router: Router,
               private productService: ProductService,
-              private orderService: GenerateOrderService) { }
+              private orderService: GenerateOrderService,
+              private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.initForm();
@@ -41,14 +43,6 @@ export class GenerateOrdersComponent implements OnInit {
     });
   }
   
-  searchProduct(){
-    this.activateRouter.paramMap.subscribe(params => {
-      this.productService.getProduct(Number(params.get('id'))).subscribe(product => {
-        console.log(product);
-      });
-    });
-  }
-
   createOrder(){
     let order ={
       productId : this.product.productId,
@@ -56,9 +50,11 @@ export class GenerateOrdersComponent implements OnInit {
       productName : this.product.productName,
       shopName : this.product.shopName,
       cant : this.formRegister.value.cant,
+      user: localStorage.getItem('username'),
     }
     this.orderService.registerOrder(order).subscribe(data => {
-        console.log(data);
+      this.snackBar.open('La orden fue generada correctamente.', 'INFO', { duration: 3000 });
+      this.router.navigate(['/pages/product/list-orders']);
     });
   }
 

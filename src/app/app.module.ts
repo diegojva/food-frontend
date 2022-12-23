@@ -16,6 +16,12 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { InterceptorService } from './service/interceptor.service';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { JwtModule } from '@auth0/angular-jwt';
+import { environment } from 'src/environments/environment';
+
+export function tokenGetter() {
+  return sessionStorage.getItem(environment.TOKEN_NAME);
+}
 
 @NgModule({
   declarations: [
@@ -36,6 +42,13 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     MatFormFieldModule,
     MatCardModule,
     MatSnackBarModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: ["localhost:8081"],
+        disallowedRoutes: ["http://localhost:8081/login/forget"],
+      }
+    }),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },

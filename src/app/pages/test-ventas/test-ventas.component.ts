@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Customer } from 'src/app/model/customer';
 import { Product } from 'src/app/model/product';
 import { SaleDetail } from 'src/app/model/saleDetail';
 import { Store } from 'src/app/model/store';
 import { CustomerService } from 'src/app/service/customer.service';
+import { LoaderService } from 'src/app/service/loader.service';
 import { ProductService } from 'src/app/service/product.service';
 import { StoreService } from 'src/app/service/store.service';
 
@@ -18,6 +21,7 @@ export class TestVentasComponent implements OnInit {
   customers$: Observable<Customer[]>;
   stores$: Observable<Store[]>;
   products$: Observable<Product[]>;
+  products : any[] = [1,2];
 
   details: SaleDetail[] = [];
 
@@ -25,13 +29,15 @@ export class TestVentasComponent implements OnInit {
   idStoreSelected: number;
   product: Product;
 
-  quantity : number;
-  price : number;
+  idTienda : any;
+  idProducts : any;
 
   constructor(
     private customerService: CustomerService,
     private storeService: StoreService,
-    private productService: ProductService
+    protected loaderService: LoaderService,
+    private snackBar: MatSnackBar,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -40,9 +46,6 @@ export class TestVentasComponent implements OnInit {
     this.getStores();
   }
 
-  /*getProducts(){
-    this.products$ = this.productService.getAllProducts();
-  }*/
 
   getCustomers(){
     this.customers$ = this.customerService.list();
@@ -54,21 +57,21 @@ export class TestVentasComponent implements OnInit {
 
 
   operate(){
-
+    this.storeService.simulateSale(this.idTienda, this.idProducts).subscribe({
+      next: (data) => {
+        this.snackBar.open('El resultado de la simulación fue: '+ data + '.', 'INFO', { duration: 4000 });
+        if(data){
+          setTimeout(() => {
+            this.router.navigate(['/pages/notifications']);
+          }, 2000);
+        }
+      }
+    });
   }
 
   addProduct(){
-    let det = new SaleDetail();
-    det.product = this.product;
-    det.price = this.price;
-    det.quantity = this.quantity;
 
-    console.log(this.product.name);
-    this.details.push(det);
   }
 
-  remove(index: number){
 
-this.details.splice(index, 1);
-  }
 }

@@ -7,5 +7,4 @@ export class OrderProduct{
     cant: number;
     state: string;
     description: number;
-    
 }

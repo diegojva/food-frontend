@@ -67,7 +67,7 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header> ACCIONES </th>
         <td mat-cell *matCellDef="let row">
           <button mat-icon-button aria-label="Example icon button with a vertical three dot icon"
-           matTooltip="Generar solicitud" matTooltipClass="example-tooltip-uppercase">
+          matTooltip="Generar solicitud" matTooltipClass="example-tooltip-uppercase" (click)="redirect()">
             <mat-icon>app_registration</mat-icon>
           </button>
         </td>
@@ -82,5 +82,5 @@
       </tr>
     </table>
   
-    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users" (page)="showMore($event)" [length]="totalElements"></mat-paginator>
   </div>
